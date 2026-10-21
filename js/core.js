@@ -324,24 +324,24 @@ function finishMission(){
   $('#done-title').textContent=stars===3?'Perfect game!':stars===2?'Great game!':'You crossed the finish line!';
   $('#done-stars').innerHTML=starStr(stars);
   const nm=progress.name||'Champ';
-  $('#done-msg').textContent=stars===3?`${nm}, you played every step like an all-star. Turbo is doing wheelies and Brix is doing a happy dance!`
+  $('#done-msg').textContent=stars===3?`${nm}, you played every step like an all-star. Turbo is wagging his fluffy tail and Brix is doing a happy dance!`
     :stars===2?`You finished the whole game! Every try makes your brain stronger, just like practice.`
     :`You finished, and working through tricky ones is how brains grow. Play it again to earn more stars!`;
   const trophy=TROPHIES.find(p=>before<p.need&&progress.stars>=p.need);
   $('#done-unlock').hidden=!trophy;if(trophy)$('#done-unlock').textContent=`New trophy: ${trophy.name}! You have ★ ${progress.stars} stars.`;
   const part=garageUnlock(before,progress.stars);
-  $('#done-part').hidden=!part;if(part)$('#done-part').textContent=`New in the Garage: ${part}! Go to the Garage to put it on your truck.`;
+  $('#done-part').hidden=!part;if(part)$('#done-part').textContent=`New in the Locker Room: ${part}! Go to the Locker Room to try it on your pup.`;
   $('#uplevel').hidden=mission.level>=maxLevel(mission.def);$('#uplevel').textContent=mission.def.nextLabel||'Next level →';
   show('done');
-  const L=$('#launch');L.innerHTML=truckSvg(null,{shadow:false});L.classList.remove('go');void L.offsetWidth;L.classList.add('go');
+  const L=$('#launch');L.innerHTML=finishArt();L.classList.remove('go');void L.offsetWidth;L.classList.add('go');
   sound('launch');setTimeout(()=>burst(innerWidth/2,innerHeight*.35,90),500);
 }
 
 /* ===================== rewards data ===================== */
 const TROPHIES=[
   {name:'Rookie Medal',need:0,icon:'medal',c:'#c98b4a'},{name:'Bronze Cup',need:6,icon:'cup',c:'#c98b4a'},{name:'Silver Cup',need:15,icon:'cup',c:'#c9d3df'},
-  {name:'Gold Cup',need:27,icon:'cup',c:'#ffd23f'},{name:'Golden Ball',need:42,icon:'ball',c:'#ffd23f'},{name:'Champion Belt',need:60,icon:'belt',c:'#ffd23f'},
-  {name:'Monster Cup',need:85,icon:'cup',c:'#36d07b'},{name:'Hall of Fame',need:115,icon:'star',c:'#ff6b3d'}
+  {name:'Gold Cup',need:27,icon:'cup',c:'#ffd23f'},{name:'Golden Basketball',need:42,icon:'ball',c:'#ff8a1f'},{name:'Champion Belt',need:60,icon:'belt',c:'#ffd23f'},
+  {name:'Super Cup',need:85,icon:'cup',c:'#36d07b'},{name:'Hall of Fame',need:115,icon:'star',c:'#ff6b3d'}
 ];
 
 /* ===================== events ===================== */

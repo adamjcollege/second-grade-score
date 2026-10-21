@@ -193,11 +193,11 @@ function genWP(l){
   if(t===0){const k=rand(3,6),n=rand(4,9),x=rand(12,40);return {key:'m'+k+n+x,text:`${who} buys <b>${k} packs</b> of sports cards. Each pack has <b>${n} cards</b>. ${who} already had <b>${x} cards</b>. How many cards does ${who} have now?`,
     steps:[numStep(`Step 1: ${k} packs of ${n} = ?`,k*n,{record:`${k} × ${n} = ${k*n}`,hints:[`Skip-count by ${n}s, ${k} times.`]}),numStep('Step 2: How many cards now?',k*n+x,{add:[k*n,x],unit:'cards'})],summary:`${k} × ${n} + ${x} = <b>${k*n+x} cards</b>.`}}
   if(t===1){const a=rand(210,480),b=rand(150,400),c=rand(60,Math.min(300,a+b-50));const est=Math.round(a/100)*100+Math.round(b/100)*100;
-    return {key:'e'+a+b+c,text:`A monster truck show sold <b>${a} tickets</b> on Friday and <b>${b} tickets</b> on Saturday. <b>${c} people</b> did not come. How many people came?`,
+    return {key:'e'+a+b+c,text:`A football stadium sold <b>${a} tickets</b> on Friday and <b>${b} tickets</b> on Saturday. <b>${c} people</b> did not come. How many people came?`,
       steps:[mcStep({prompt:'Estimate first: about how many tickets were sold? (Round each to the nearest hundred.)',right:`about ${est}`,wrong:[`about ${est+200}`,`about ${Math.max(100,est-200)}`],record:`Estimate: about ${est}`}),numStep('Step 1: How many tickets in all?',a+b,{add:[a,b],record:`${a} + ${b} = ${a+b}`}),numStep(`Step 2: ${a+b} − ${c} = ?`,a+b-c,{unit:'people'})],
       summary:`${a+b} − ${c} = <b>${a+b-c} people</b>. Does ${a+b} make sense? It's close to our estimate of ${est}. ✓`}}
-  const k=rand(3,6),n=rand(6,9),g=rand(5,15),tot=k*n;return {key:'g'+k+n+g,text:`A brick set has <b>${k} bags</b> with <b>${n} wheels</b> in each bag. ${who} uses <b>${g} wheels</b> on a monster truck. How many wheels are left?`,
-    steps:[numStep(`Step 1: ${k} × ${n} = ?`,tot,{record:`${k} × ${n} = ${tot}`}),numStep(`Step 2: ${tot} − ${g} = ?`,tot-g,{unit:'wheels'})],summary:`${k} × ${n} − ${g} = <b>${tot-g} wheels</b>.`};
+  const k=rand(3,6),n=rand(6,9),g=rand(5,15),tot=k*n;return {key:'g'+k+n+g,text:`A pet store has <b>${k} boxes</b> with <b>${n} dog treats</b> in each box. ${who} buys <b>${g} treats</b> for a fluffy puppy. How many treats are left?`,
+    steps:[numStep(`Step 1: ${k} × ${n} = ?`,tot,{record:`${k} × ${n} = ${tot}`}),numStep(`Step 2: ${tot} − ${g} = ?`,tot-g,{unit:'treats'})],summary:`${k} × ${n} − ${g} = <b>${tot-g} treats</b>.`};
 }
 
 /* ===================== MULTIPLY & DIVIDE DOME ===================== */
@@ -217,7 +217,7 @@ function genArr(l){
     steps:[numStep(`${t*10} is how many tens?`,t,{record:`${t*10} = ${t} tens`}),numStep(`${a} × ${t} tens = ? tens`,a*t,{record:`${a} × ${t} tens = ${a*t} tens`}),numStep(`${a*t} tens = ?`,a*t*10)],summary:`${a} × ${t*10} = <b>${a*t*10}</b>. Multiply ${a} × ${t}, then it's tens, so add a zero.`};
 }
 function genShare(l){
-  if(l===0){const k=rand(2,5),q=rand(2,6),N=k*q,what=pick(['soccer balls','stickers','race cars','cookies']);return {key:'s'+N+k,text:`<b>${N} ${what}</b> are shared equally by <b>${k} friends</b>. How many does each friend get?`,viz:scatterDots(N),
+  if(l===0){const k=rand(2,5),q=rand(2,6),N=k*q,what=pick(['dog treats','stickers','basketballs','cookies']);return {key:'s'+N+k,text:`<b>${N} ${what}</b> are shared equally by <b>${k} friends</b>. How many does each friend get?`,viz:scatterDots(N),
     steps:[numStep('How many does each friend get?',q,{unit:what,hints:[`Deal them out one at a time to ${k} friends.`,`What times ${k} is ${N}? Count by ${k}s.`]}),mcStep({prompt:'Which division sentence matches?',right:`${N} ÷ ${k} = ${q}`,wrong:[`${N} ÷ ${q} = ${k*k}`,`${N} − ${k} = ${N-k}`]})],summary:`${N} ÷ ${k} = <b>${q}</b> each.`}}
   if(l===1){const a=rand(2,9),b=rand(2,9),N=a*b;const t=rand(0,1);
     if(t===0)return {key:'u'+a+N,text:`Find the missing number: <b>${a} × ? = ${N}</b>`,steps:[numStep(`${a} × ? = ${N}`,b,{hints:[`Count by ${a}s until you reach ${N}.`,`Or think ${N} ÷ ${a}.`]}),numStep(`So ${N} ÷ ${a} = ?`,b)],summary:`${a} × <b>${b}</b> = ${N}, so ${N} ÷ ${a} = <b>${b}</b>.`};
@@ -230,7 +230,7 @@ function genShare(l){
 
 /* ===================== MEASURE & STATS CENTER ===================== */
 const LEN_ITEMS=['pencil','crayon','toy car','marker','brick bar','eraser'];
-const UNIT_EST=[['a soccer field','meters',['centimeters','inches']],['a pencil','inches',['yards','meters']],['a football field','yards',['inches','centimeters']],['a basketball hoop pole','feet',['inches','centimeters']],['a bug','centimeters',['meters','yards']],['a monster truck','feet',['inches','centimeters']],['a race track','meters',['centimeters','inches']],['a sticker','centimeters',['meters','feet']]];
+const UNIT_EST=[['a soccer field','meters',['centimeters','inches']],['a pencil','inches',['yards','meters']],['a football field','yards',['inches','centimeters']],['a basketball hoop pole','feet',['inches','centimeters']],['a bug','centimeters',['meters','yards']],['a basketball hoop','feet',['inches','centimeters']],['a race track','meters',['centimeters','inches']],['a sticker','centimeters',['meters','feet']]];
 function genLen(l){
   if(l===0){const unit=Math.random()<.5?'in':'cm',L=unit==='in'?rand(2,7):rand(4,14),it=pick(LEN_ITEMS);
     return {key:'r'+unit+L,text:`How long is the <b>${it}</b>?`,viz:ruler({len:unit==='in'?8:15,unit,items:[{from:0,to:L,label:it}]}),

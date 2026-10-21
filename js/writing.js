@@ -10,8 +10,8 @@ const PRINT=[
   {text:'n m h r b p',label:'Bump letters',tip:'Pull down first, then push back up and make a bump.'},
   {text:'v w x y k z',label:'Slant letters',tip:'Use straight, slanted lines. y dips below the baseline.'},
   {text:'e f s u',label:'Tricky letters',tip:'e starts with a line across the middle. s is a curvy snake: start at the top.'}],
- ['soccer','truck','goal','jump','bricks','race','quick','zoom','their','there'],
- ['The truck can jump.','We won the game!','I kick the ball.','Their team is fast.','Zoom to the goal!','Max built a tower.','Is it my turn?']
+ ['soccer','puppy','goal','jump','dunk','fluffy','quick','zoom','their','there'],
+ ['The puppy can jump.','We won the game!','I can dunk!','Their team is fast.','Run to the end zone!','My dog is fluffy.','Is it my turn?']
 ];
 const PW=900,PH=260;
 class PrintQ{
@@ -104,7 +104,7 @@ class PrintQ{
 }
 
 /* ---------------- Paragraph Builder ---------------- */
-const MISSPELL={alot:'a lot',becuase:'because',becase:'because',beacuse:'because',becuz:'because',cuz:'because',freind:'friend',frend:'friend',thier:'their',wich:'which',realy:'really',untill:'until',wierd:'weird',beleive:'believe',belive:'believe',recieve:'receive',tommorow:'tomorrow',tomorow:'tomorrow',finaly:'finally',diffrent:'different',favrite:'favorite',favorit:'favorite',peple:'people',poeple:'people',sed:'said',wuz:'was',thru:'through',gonna:'going to',wanna:'want to',dont:"don't",cant:"can't",wont:"won't",didnt:"didn't",isnt:"isn't",im:"I'm",probly:'probably',suprise:'surprise',buyed:'bought',runned:'ran',goed:'went',brang:'brought',socer:'soccer',soccor:'soccer',sokker:'soccer',basketbal:'basketball',footbal:'football',trophey:'trophy',monstor:'monster',truk:'truck',wus:'was',becuse:'because',gaim:'game',playd:'played',kiked:'kicked',scord:'scored',evry:'every',evrey:'every',becaus:'because',wen:'when',wat:'what',whent:'went',allways:'always',alway:'always',beutiful:'beautiful',beautifull:'beautiful',awsome:'awesome',libary:'library',sciense:'science',agian:'again',thay:'they',ther:'there',whith:'with',wit:'with',frist:'first',fisrt:'first',lik:'like',becouse:'because',scool:'school',skool:'school'};
+const MISSPELL={alot:'a lot',becuase:'because',becase:'because',beacuse:'because',becuz:'because',cuz:'because',freind:'friend',frend:'friend',thier:'their',wich:'which',realy:'really',untill:'until',wierd:'weird',beleive:'believe',belive:'believe',recieve:'receive',tommorow:'tomorrow',tomorow:'tomorrow',finaly:'finally',diffrent:'different',favrite:'favorite',favorit:'favorite',peple:'people',poeple:'people',sed:'said',wuz:'was',thru:'through',gonna:'going to',wanna:'want to',dont:"don't",cant:"can't",wont:"won't",didnt:"didn't",isnt:"isn't",im:"I'm",probly:'probably',suprise:'surprise',buyed:'bought',runned:'ran',goed:'went',brang:'brought',socer:'soccer',soccor:'soccer',sokker:'soccer',basketbal:'basketball',footbal:'football',trophey:'trophy',pupy:'puppy',puppie:'puppy',fluffie:'fluffy',footbal:'football',wus:'was',becuse:'because',gaim:'game',playd:'played',kiked:'kicked',scord:'scored',evry:'every',evrey:'every',becaus:'because',wen:'when',wat:'what',whent:'went',allways:'always',alway:'always',beutiful:'beautiful',beautifull:'beautiful',awsome:'awesome',libary:'library',sciense:'science',agian:'again',thay:'they',ther:'there',whith:'with',wit:'with',frist:'first',fisrt:'first',lik:'like',becouse:'because',scool:'school',skool:'school'};
 const DAYS=['monday','tuesday','wednesday','thursday','friday','saturday','sunday','january','february','april','june','july','august','september','october','november','december'];
 // sound-alike mix-ups that are very likely wrong: [pattern, fix, why]
 const HOMO_CHECKS=[
@@ -123,19 +123,19 @@ const HOMO_CHECKS=[
  [/\bthan (we|i|he|she|they) (went|played|ate|won|ran|drove|scored)\b/i,m=>'then '+m[1]+' '+m[2],'Use <b>then</b> for time order (first, then). Use <b>than</b> to compare.']
 ];
 const WRITE_TYPES=[
- {key:'opinion',title:'Opinion paragraph',std:'W.2.1',prompts:['What is the best sport to play?','Would you rather drive a monster truck or a race car?','What is the best thing to build with bricks?','Should kids get recess every day?','Which is better: reading a book or playing a video game?'],
+ {key:'opinion',title:'Opinion paragraph',std:'W.2.1',prompts:['What is the best sport to play?','Which is better: basketball or football?','What is the best thing to build with bricks?','Should kids get recess every day?','Which is better: reading a book or playing a video game?'],
   links:['because','also','for example','another reason','so','that is why','first','and'],needLinks:2,
   fields:[{label:'1. Your opinion',tip:'Tell what you think in one clear sentence.',chips:['I think','In my opinion,','The best']},
    {label:'2. Reason #1',tip:'Why? Give a reason. Tell more about it.',chips:['One reason is','because','For example,']},
    {label:'3. Reason #2',tip:'Give another reason.',chips:['Another reason is','Also,','I also like']},
    {label:'4. Ending',tip:'Say your opinion again in a new way.',chips:['That is why','So,','That is why I think']}]},
- {key:'inform',title:'Informative paragraph',std:'W.2.2',prompts:['Teach someone how to play soccer.','Explain how to build a strong brick tower.','Tell all about monster trucks.','Teach someone how to take care of a pet.','Explain how to get better at basketball.'],
+ {key:'inform',title:'Informative paragraph',std:'W.2.2',prompts:['Teach someone how to play soccer.','Explain how to build a strong brick tower.','Tell all about fluffy dogs like the Bichon Frise.','Teach someone how to take care of a pet.','Explain how to get better at basketball.'],
   links:['first','next','then','also','another','for example','finally','because'],needLinks:2,
   fields:[{label:'1. Introduce the topic',tip:'Tell the reader what you will teach them.',chips:['Did you know','Let me tell you about','Here is how to']},
    {label:'2. Fact or step #1',tip:'Give a fact or the first step.',chips:['First,','One fact is that','For example,']},
    {label:'3. Fact or step #2',tip:'Add another fact or step.',chips:['Next,','Also,','Then,']},
    {label:'4. Ending',tip:'Wrap it up for the reader.',chips:['Now you know','Finally,','That is how']}]},
- {key:'narrative',title:'Story (narrative)',std:'W.2.3',prompts:['The day you scored the winning goal.','Your monster truck comes to life!','You get pulled into a racing video game.','Your brick tower starts to talk.','A puppy follows you home from the park.'],
+ {key:'narrative',title:'Story (narrative)',std:'W.2.3',prompts:['The day you scored the winning goal.','Your fluffy puppy learns to play basketball.','You get pulled into a racing video game.','Your brick tower starts to talk.','A puppy follows you home from the park.'],
   links:['first','next','then','after that','suddenly','finally','at the end','later','when'],needLinks:2,
   fields:[{label:'1. Beginning: who and where',tip:'Tell who is in the story and where it happens.',chips:['One day,','Last summer,','It was a sunny day when']},
    {label:'2. First event',tip:'What happens first?',chips:['First,','At first,','Suddenly,']},

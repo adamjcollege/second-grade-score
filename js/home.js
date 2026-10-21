@@ -39,7 +39,7 @@ function missionCard(m){
   <div class="stds">${m.std.map(s=>`<span class="std">${esc(stdLabel(s))}</span>`).join('')}</div>${btns}</article>`;
 }
 function zoneHtml(zone){
-  const intro=zone==='math'?`<div class="zone-intro"><svg viewBox="0 0 60 70" aria-hidden="true"><use href="#turbo"/></svg><p>Turbo the monster truck coaches the math games. Most games have three levels: <b>Rookie</b>, <b>Pro</b>, and <b>All-Star</b> (third-grade challenges).</p></div>`
+  const intro=zone==='math'?`<div class="zone-intro"><svg viewBox="0 0 60 70" aria-hidden="true"><use href="#turbo"/></svg><p>Turbo the fluffy pup coaches the math games. Most games have three levels: <b>Rookie</b>, <b>Pro</b>, and <b>All-Star</b> (third-grade challenges).</p></div>`
     :`<div class="zone-intro"><svg viewBox="0 0 60 70" aria-hidden="true"><use href="#brix"/></svg><p>Brix runs the Word Speedway: reading, homophones, spelling, capitals, commas, and writing. Careful beats fast. Check every clue!</p></div>`;
   return intro+SECTORS.filter(s=>s.zone===zone).map(s=>`<section class="sector"><div class="sector-head"><h3>${esc(s.title)}</h3><p>${esc(s.blurb)}</p></div><div class="cards">${MISSIONS.filter(m=>m.sector===s.id).map(missionCard).join('')}</div></section>`).join('');
 }
@@ -166,7 +166,7 @@ function grownupsHtml(){
     <li><b>Homophones on purpose.</b> Homophone Hustle (fill the blank) and Homophone Hunt (find the mistake) drill their, there, they're and friends. The Sentence Builder also flags likely mix-ups like "their is" or "your welcome."</li>
     <li><b>Spelling by ear.</b> Spelling Shootout reads each word and a sentence aloud. He types it, and wrong letters are shown in place with a pattern tip.</li>
     <li><b>Careful reading.</b> Reading questions unlock after a short timer bar, and answers come with a <b>Prove it!</b> step: he taps the sentence that supports his answer.</li>
-    <li><b>No timers on answers</b> unless you turn on timed facts. Stars unlock trophies and Garage parts, and are never spent.</li>
+    <li><b>No timers on answers</b> unless you turn on timed facts. Stars unlock trophies and Locker Room gear, and are never spent.</li>
     <li><b>On a phone or tablet:</b> use Share → <b>Add to Home Screen</b> (iPhone) or ⋮ → <b>Add to Home screen</b> (Android). It then opens full-screen like an app. The phone's Back button returns to the home screen instead of leaving.</li>
     <li>Progress is saved in this browser on this device only. ${totalMissions?`So far: <b>${totalMissions}</b> ${plural(totalMissions,'game')} finished and <b>★ ${progress.stars}</b> stars.`:''}</li>
   </ul></details>
@@ -186,9 +186,9 @@ function renderHome(){
 }
 function goHome(){leaveProblem();TTS.stop();stopFx();renderHome();show('home')}
 document.addEventListener('input',e=>{
-  if(e.target.id==='truck-name'||e.target.id==='truck-num'){
-    const c=truckCfg();if(e.target.id==='truck-name')c.name=e.target.value.trim().slice(0,16)||'Crusher';else c.number=e.target.value.replace(/[^0-9]/g,'').slice(0,2);
-    save();const p=$('#truck-preview');if(p)p.innerHTML=truckSvg();
+  if(e.target.id==='pup-name'||e.target.id==='pup-num'){
+    const c=pupCfg();if(e.target.id==='pup-name')c.name=e.target.value.trim().slice(0,16)||'Biscuit';else c.number=e.target.value.replace(/[^0-9]/g,'').slice(0,2);
+    save();const p=$('#pup-preview');if(p)p.innerHTML=pupSvg();
   }
 });
 document.addEventListener('click',e=>{
@@ -197,8 +197,8 @@ document.addEventListener('click',e=>{
   const st=e.target.closest('[data-set]');if(st){S()[st.dataset.set]=JSON.parse(st.dataset.val);save();renderHome();return}
   const sd=e.target.closest('[data-sound]');if(sd){progress.sound=sd.dataset.sound==='true';save();syncSoundBtns();renderHome();return}
   const gc=e.target.closest('[data-gcat]');if(gc){garageCat=gc.dataset.gcat;renderHome();return}
-  const gi=e.target.closest('[data-gitem]');if(gi){const [k,v]=gi.dataset.gitem.split('|');truckCfg()[k]=v;save();sound('pop');renderHome();return}
-  if(e.target.id==='reset-ask'){$('#reset-row').innerHTML=`<span>This erases all stars, truck parts, and drafts on this device.</span><button type="button" class="btn btn-hot" id="reset-yes">Yes, reset</button><button type="button" class="btn" id="reset-no">Cancel</button>`;return}
+  const gi=e.target.closest('[data-gitem]');if(gi){const [k,v]=gi.dataset.gitem.split('|');pupCfg()[k]=v;save();sound('pop');renderHome();return}
+  if(e.target.id==='reset-ask'){$('#reset-row').innerHTML=`<span>This erases all stars, pup gear, and drafts on this device.</span><button type="button" class="btn btn-hot" id="reset-yes">Yes, reset</button><button type="button" class="btn" id="reset-no">Cancel</button>`;return}
   if(e.target.id==='reset-yes'){const keep={name:progress.name,sound:progress.sound,settings:progress.settings};progress={name:keep.name,stars:0,best:{},sound:keep.sound,drafts:{},played:{},settings:keep.settings};save();renderHome();return}
   if(e.target.id==='reset-no'){renderHome();return}
 });
